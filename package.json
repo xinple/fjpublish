@@ -39,10 +39,9 @@
     "phpdate-js": "^1.0.3",
     "progress": "^2.0.0",
     "request": "^2.83.0",
-    "scp2": "^0.5.0",
     "semver": "^5.4.1",
     "simple-git": "^1.85.0",
-    "ssh2shell": "^1.8.4",
+    "ssh2shell": "^2.0.3",
     "tar-fs": "^1.16.0"
   },
   "devDependencies": {
