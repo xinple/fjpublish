@@ -6,4 +6,5 @@ sftp-config.json
 /sublime.sublime-project
 /sublime.sublime-workspace
 fjpublish.config.js
+fjpublish.config.cjs
 example/webpack/dist

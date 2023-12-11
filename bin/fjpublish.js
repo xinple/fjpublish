@@ -49,7 +49,7 @@ program
   .usage('<cmd> [options]')
   .option(
     '--config <path>',
-    "Set the profile path and defaults to 'fjpublish.config.js' in the current directory"
+    "Set the profile path and defaults to 'fjpublish.config.cjs' in the current directory"
   )
 
 program
@@ -57,22 +57,22 @@ program
   .description('Generate a default configuration for reference')
   .action(cmd => {
     COMMAND = 'init'
-    let confPath = path.join(process.cwd(), 'fjpublish.config.js')
+    let confPath = path.join(process.cwd(), 'fjpublish.config.cjs')
     let p = fs.existsSync(confPath)
       ? inquirer.prompt([
-          {
-            type: 'confirm',
-            name: 'init',
-            message:
-              "There is a 'fjpublish.config.js' file in the current directory. Continue operation will overwrite. Are you sure?",
-            default: false
-          }
-        ])
+        {
+          type: 'confirm',
+          name: 'init',
+          message:
+              "There is a 'fjpublish.config.cjs' file in the current directory. Continue operation will overwrite. Are you sure?",
+          default: false
+        }
+      ])
       : Promise.resolve({ init: true })
     p.then(({ init }) => {
       if (!init) return warning('cancelled', false)
       let fileStream = fs.createReadStream(
-        path.join(__dirname, '../lib/fjpublish.config.js')
+        path.join(__dirname, '../lib/fjpublish.config.cjs')
       )
       fileStream.pipe(fs.createWriteStream(confPath))
       fileStream.on('end', () => {
@@ -92,20 +92,21 @@ program
   .action((server, { key }) => {
     COMMAND = 'auth'
     let defaultKey = `${os.homedir()}/.ssh/id_rsa.pub`
-    if (!key)
+    if (!key) {
       assert(
         fs.existsSync(defaultKey),
         'error',
         "File '~/.ssh/id_rsa.pub' is not found, please check or select a pubic keys that need to be authenticated"
       )
-    if (key)
+    }
+    if (key) {
       assert(
         path.isAbsolute(key) && path.extname(key) === '.pub',
         'error',
         "please select a public key and path must be absolute path, eg '/abc/cde.pub'"
       )
-    if (key)
-      assert(fs.existsSync(key), 'error', 'Public key you choice is not exist')
+    }
+    if (key) { assert(fs.existsSync(key), 'error', 'Public key you choice is not exist') }
     if (!key) key = defaultKey
     let catKey = fs.createReadStream(key, 'utf8')
     let sshAuth = exec(
@@ -223,8 +224,7 @@ program
         'Please select the environment to publish?',
         multiple
       ).then(answers => {
-        if (isArray(answers.env) && !answers.env.length)
-          return warning('Not to select')
+        if (isArray(answers.env) && !answers.env.length) { return warning('Not to select') }
         envMainFunction(
           config,
           isArray(answers.env) ? answers.env : [answers.env],
@@ -380,16 +380,16 @@ function MAINFUNC(config, env, cmd) {
   fjpublish.start(true)
 }
 
-//abc:cbd@a-b-c
-//<key>[:val][@envs]
+// abc:cbd@a-b-c
+// <key>[:val][@envs]
 function cmdCustomArgParse(arg, exec) {
   return arg.split(',').map(v => {
     return (exec = /^(\w+)(?::(\w+))?(?:@(\w+(?:-\w+)*))?$/.exec(v))
       ? {
-          key: exec[1],
-          val: exec[2] ? exec[2] : true,
-          env: exec[3] ? exec[3].replace(/-/g, ',') : true
-        }
+        key: exec[1],
+        val: exec[2] ? exec[2] : true,
+        env: exec[3] ? exec[3].replace(/-/g, ',') : true
+      }
       : null
   })
 }
@@ -421,8 +421,8 @@ function selectEnv(modules, tips, multiple) {
   ])
 }
 
-//test:root@123.12.23.33:22#abcdefg
-//[env:]<username><@host>[:port][#password]
+// test:root@123.12.23.33:22#abcdefg
+// [env:]<username><@host>[:port][#password]
 function sshParse(str, env) {
   let exec = /^(?:([^:]+):)?([a-zA-Z0-9\-\._]+)@([^:#]+)(?::([0-9]+))?(?:#(.+))?$/.exec(
     str
@@ -435,30 +435,31 @@ function sshParse(str, env) {
     port: exec[4],
     password: exec[5]
   }
-  if (env.length === 1 && exec && exec[1])
+  if (env.length === 1 && exec && exec[1]) {
     warning(
       "When you publish only one environment, the --ssh parameter 'env' is not required",
       false
     )
-  if (env.length > 1 && !ssh.env)
+  }
+  if (env.length > 1 && !ssh.env) {
     error(
       "When multiple environments are selected, the --ssh parameter 'env' should clearly indicate which environment is set up"
     )
-  if (env.length > 1 && !env.includes(ssh.env))
-    error('The env that --ssh set up  is not include in this publish task')
+  }
+  if (env.length > 1 && !env.includes(ssh.env)) { error('The env that --ssh set up  is not include in this publish task') }
   return isUndefined(ssh.password)
     ? inquirer
-        .prompt([
-          {
-            type: 'password',
-            name: 'password',
-            message: `env ${ssh.env}'s password`
-          }
-        ])
-        .then(answers => {
-          ssh.password = answers.password
-          return Promise.resolve(ssh)
-        })
+      .prompt([
+        {
+          type: 'password',
+          name: 'password',
+          message: `env ${ssh.env}'s password`
+        }
+      ])
+      .then(answers => {
+        ssh.password = answers.password
+        return Promise.resolve(ssh)
+      })
     : Promise.resolve(ssh)
 }
 
@@ -471,11 +472,12 @@ function cmdExtendModules(singleEnv, optionEnv, val = true) {
 }
 
 function getConfigPath({ config } = {}) {
-  let configPath = path.join(process.cwd(), 'fjpublish.config.js')
+  let configPath = path.join(process.cwd(), 'fjpublish.config.cjs')
   if (config) configPath = path.resolve(config)
-  if (!fs.existsSync(configPath))
+  if (!fs.existsSync(configPath)) {
     return error(
       "The configuration file does not exist. You can enter 'fjpublish init' to generate a reference configuration in the current directory."
     )
+  }
   return configPath
 }
