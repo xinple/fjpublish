@@ -14,7 +14,7 @@ fjpublish 的基本使用方式在前几个章节已介绍完毕，如果不需�
 
 ```js
 const Fjpublish = require('Fjpublish')
-const config = require('fjpublish.config.js')
+const config = require('fjpublish.config.cjs')
 
 Fjpublish(config, ['test', { env: 'public', nomerge: true }])
 ```
@@ -106,7 +106,7 @@ const builder = require('Fjpublish/lib/fjpublish_builder.js')
 const compress = require('Fjpublish/lib/fjpublish_compress.js')
 const sftp = require('Fjpublish/lib/fjpublish_sftp.js')
 const shell = require('Fjpublish/lib/fjpublish_shell.js')
-const config = require('./fjpublish.config.js')
+const config = require('./fjpublish.config.cjs')
 
 Fjpublish(config, ['test', { env: 'public', nomerge: true }])
   .use(prompt)

@@ -11,7 +11,7 @@
 ## 配置文件
 
 ```js
-// 项目根目录下fjpublish.config.js
+// 项目根目录下fjpublish.config.cjs
 module.exports = {
   modules: [
     {

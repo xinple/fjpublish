@@ -1,6 +1,6 @@
 # 使用方式
 
-如果你已经在项目根目录准备好了一个[配置文件](/guide/config.html)（默认 fjpublish.config.js）并已经[配置](/api/)妥当，那么你就可以发布项目了。
+如果你已经在项目根目录准备好了一个[配置文件](/guide/config.html)（默认 fjpublish.config.cjs）并已经[配置](/api/)妥当，那么你就可以发布项目了。
 <font color="#DC143C">事实上，fjpublish 命令行中部分选项都是为配置文件设置或覆盖值，所以应当理解为需要临时设置或覆盖值的选项应当在命令行中设置，需要长期设置值的选项在配置文件中设置</font>
 
 ## fjpublish
@@ -9,7 +9,7 @@
 
 ### `--config`
 
-选择其他的文件替代默认的 fjpublish.config.js 文件。
+选择其他的文件替代默认的 fjpublish.config.cjs 文件。
 
 ### `-h, --help`
 
@@ -17,7 +17,7 @@
 
 ## fjpublish init
 
-在当前工作目录生成一份参考配置文件 fjpublish.config.js。
+在当前工作目录生成一份参考配置文件 fjpublish.config.cjs。
 
 ## fjpublish list
 

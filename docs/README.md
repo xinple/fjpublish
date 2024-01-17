@@ -18,7 +18,7 @@ footer: MIT Licensed
 # 安装
 npm install -g fjpublish # 或者：yarn global add fjpublish
 
-# 在项目根目录下准备一个配置文件fjpublish.config.js
+# 在项目根目录下准备一个配置文件fjpublish.config.cjs
 module.exports = {
   modules: [{
     name: '测试环境',

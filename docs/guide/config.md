@@ -2,7 +2,7 @@
 
 ##文件结构
 
-fjpublish命令行默认会读取当前工作目录下的**fjpublish.config.js**文件，该文件返回一个对象，结构如下：
+fjpublish命令行默认会读取当前工作目录下的**fjpublish.config.cjs**文件，该文件返回一个对象，结构如下：
 
 ```js
 module.exports = {

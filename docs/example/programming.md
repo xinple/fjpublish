@@ -9,7 +9,7 @@
 ## 配置文件
 
 ```js
-// 项目根目录下fjpublish.config.js
+// 项目根目录下fjpublish.config.cjs
 module.exports = {
   modules: [
     {
@@ -38,7 +38,7 @@ const builder = require('Fjpublish/lib/fjpublish_builder.js')
 const compress = require('Fjpublish/lib/fjpublish_compress.js')
 const sftp = require('Fjpublish/lib/fjpublish_sftp.js')
 const shell = require('Fjpublish/lib/fjpublish_shell.js')
-const config = require('./fjpublish.config.js')
+const config = require('./fjpublish.config.cjs')
 
 Fjpublish(config)
   .use(prompt)
