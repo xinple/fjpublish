@@ -1,3 +1,6 @@
+2026-06-20 v2.0.4
+- 修改README.md 改用 pnpm；
+
 2022-10-10 v2.0.3
 - 升级ssh2shell到v2.0.3版本，并修复报错；
 - 支持 Ed25519 的 SSH Keys；
@@ -8,10 +11,10 @@
 
 ```
 # 切换到该程序目录然后：
-npm install
-npm link
+pnpm install
+pnpm add -g .
 ```
 
-PS：没有上传到 npm，所以本地 npm link 用吧。
+PS：没有 publish，所以使用本地包。
 
-查看原作者文档：`npm run docs`
+查看原作者文档：`pnpm docs:build && pnpm docs`
